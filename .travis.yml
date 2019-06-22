@@ -3,7 +3,6 @@ language: bash
 
 install:
   - powershell -Command 'Set-ExecutionPolicy -ExecutionPolicy RemoteSigned'
-  - powershell -Command 'Install-Module -Name Pester -Force -Scope CurrentUser'
 
 script:
   - powershell -Command 'Get-childItem -Recurse tests/*.Tests.ps1 | foreach { Invoke-Pester -EnableExit $_ }'

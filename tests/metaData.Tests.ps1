@@ -1,4 +1,3 @@
-Remove-Variable * -ErrorAction SilentlyContinue; Remove-Module *
 Import-Module ./modules/MetaData.psm1
 
 function testMetaData($testcases) {
@@ -38,6 +37,7 @@ describe 'Move [ft.] section' {
      'FILV X Beatmount - Dark Sun (Feat. SEQ) | #GANGSTERMUSIC'=@{'artist'='FILV X Beatmount ft. SEQ';'title'='Dark Sun | #GANGSTERMUSIC'} 
      'Super Sako feat. Hayko - Mi Gna (Consoul Trainin Remix)'=@{'artist'='Super Sako ft. Hayko';'title'='Mi Gna (Consoul Trainin Remix)'}  
      'Lane 8 - Hold On feat. Fractures (Ben Böhmer Remix)'=@{'artist'='Lane 8 ft. Fractures';'title'='Hold On (Ben Böhmer Remix)'}   
+	 'Gorgon City (feat. Katy Menditta) - Imagination'=@{'artist'='Gorgon City ft. Katy Menditta';'title'='Imagination'}   
     }
 }
 
@@ -50,6 +50,7 @@ describe 'Filter unnecessary sections' {
      'The Cardigans - My Favourite Game (HIGH QUALITY)'=@{'artist'='The Cardigans';'title'='My Favourite Game'}
      'Parra for Cuva - Cupa Cupa (Official Video)'=@{'artist'='Parra for Cuva';'title'='Cupa Cupa'}
      'Morandi ft. Kati - Love me [HD]'=@{'artist'='Morandi ft. Kati';'title'='Love me'}
+     'Shakira - Loca [MUSIC VIDEO]'=@{'artist'='Shakira';'title'='Loca'}
     }
 }
 
@@ -58,5 +59,21 @@ describe 'Complex parsing' {
     testMetaData @{
      'Marshmello - Here With Me Feat. CHVRCHES (Official Music Video)'=@{'artist'='Marshmello ft. CHVRCHES';'title'='Here With Me'}
      'will.i.am - Scream & Shout ft. Britney Spears (Official Music Video)'=@{'artist'='will.i.am ft. Britney Spears';'title'='Scream & Shout'}
+     'Burak Yeter - Tuesday ft. Danelle Sandoval (Audio)'=@{'artist'='Burak Yeter ft. Danelle Sandoval';'title'='Tuesday'}
+     
+    }
+}
+
+describe 'Incomplete extraction' {
+
+    testMetaData @{
+     '-_ -.;'=@{'artist'='';'title'=''}
+     ' - '=@{'artist'='';'title'=''}
+     ' - XXX'=@{'artist'='';'title'='XXX'}
+     'A- A'=@{'artist'='A- A';'title'='A- A'}
+     'A -A'=@{'artist'='A -A';'title'='A -A'}
+     'XXX - '=@{'artist'='XXX';'title'='XXX'}
+     'Losing My Mind'=@{'artist'='Losing My Mind';'title'='Losing My Mind'}
+     'Gorgon City - feat. MNEK'=@{'artist'='Gorgon City ft. MNEK';'title'=''}
     }
 }

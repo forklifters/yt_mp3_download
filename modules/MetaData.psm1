@@ -1,7 +1,7 @@
 function ExtractMetaData ($videoTitle)
 {
     $videoTitle = $videoTitle -ireplace  "(\s|\()feat\.",'$1ft.' # 'feat. xy' -> 'ft. xy'
-    $videoTitle = $videoTitle -ireplace  "[[(](HD|HQ)[])]",'' # '[HD]' -> ''
+    $videoTitle = $videoTitle -ireplace  "[[(](HD|HQ|audio|video)[])]",'' # '[HD]' -> ''
     $videoTitle = $videoTitle -ireplace  "[[(]high (definition|quality)[])]",'' # '[High Quality]' -> ''
     $videoTitle = $videoTitle -ireplace  "[[(]?official (music|lyrics?) (video|audio)[])]?",'' # '(Official Music Video)' -> ''
     $videoTitle = $videoTitle -ireplace  "[[(]?(official|music|lyrics?) (video|audio)[])]?",'' # '(Official Video)' -> ''
@@ -16,11 +16,13 @@ function ExtractMetaData ($videoTitle)
     {
         $title = $artist
     } 
-    elseif ($title -match "(\s|\()(ft\.[^()]*)($|\)|\()") # move '(ft. xy)' to the artist and remove it from the title
+    elseif ($title -imatch "(^|\s|\()(ft\.[^()]*)($|\)|\()") # move '(ft. xy)' to the artist and remove it from the title
     {
         $artist += " " +$matches[2]
-        $title = $title -replace "(\s|\()ft\.[^()]*\)?",' '
+        $title = $title -ireplace "(^|\s|\()ft\.[^()]*\)?",' '
     }
+
+    $artist = $artist -ireplace "\((ft\.[^)]*)\)",'$1' # '(ft. xy)' -> 'ft. xy'
     
     return @{
      'artist'=trim $artist
