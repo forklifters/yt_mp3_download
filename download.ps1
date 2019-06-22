@@ -6,9 +6,15 @@ $ErrorActionPreference = "Stop"
 
 function GetMetaDataFromURL ($url)
 {
-    $videoTitle = ./youtube-dl.exe --no-playlist --get-filename -o "%(title)s" $url
-    $videoTitle = $videoTitle -replace "(\s|\()feat\.",'$1ft.' # 'feat. xy' -> 'ft. xy'
-    $videoTitle = $videoTitle -replace "\((ft\.[^)]*)\)",'$1' # '(ft. xy)' -> 'ft. xy'
+    $originalVideoTitle = ./youtube-dl.exe --no-playlist --get-filename -o "%(title)s" $url
+
+    $videoTitle = $originalVideoTitle
+    $videoTitle = $videoTitle -ireplace  "(\s|\()feat\.",'$1ft.' # 'feat. xy' -> 'ft. xy'
+    $videoTitle = $videoTitle -ireplace  "[[(](HD|HQ)[])]",'' # '[HD]' -> ''
+    $videoTitle = $videoTitle -ireplace  "[[(]?official (music|lyrics?) (video|audio)[])]?",'' # '(Official Music Video)' -> ''
+    $videoTitle = $videoTitle -ireplace  "[[(]?(official|music|lyrics?) (video|audio)[])]?",'' # '(Official Video)' -> ''
+    $videoTitle = $videoTitle -ireplace  "[[(]?video edit[])]?",'' # '(Video Edit)' -> ''
+    $videoTitle = $videoTitle -ireplace  "[[(]?original mix[])]?",'' # '(Original Mix)' -> ''
 
     $titleFragments = $videoTitle -split ' - '
     $artist = $titleFragments[0]
@@ -18,23 +24,30 @@ function GetMetaDataFromURL ($url)
     {
         $title = $artist
     } 
-    elseif ($title -match "(\sft\.[^(]*)($|\()") # move 'ft. xy' to the artist and remove it from the title
+    elseif ($title -match "(\s|\()(ft\.[^()]*)($|\)|\()") # move '(ft. xy)' to the artist and remove it from the title
     {
-        $artist += $matches[1]
-        $title = $title -replace "(\sft\.[^(]*)($|\()",' $2'
+        $artist += " " +$matches[2]
+        $title = $title -replace "(\s|\()ft\.[^()]*\)?",' '
     }
     
     return @{
-     'artist'=$artist.Trim() -replace '\s+', ' '
-     'title'=$title.Trim() -replace '\s+', ' '
+     'artist'=trim $artist
+     'title'=trim $title
+     'originalTitle'=trim $originalVideoTitle
     }
+}
+
+
+function trim ($str) 
+{
+    return $str.Trim(" -_.;") -replace '\s+', ' '
 }
 
 
 
 function PromptMetaData ($metaData)
 {
-    Write-Host "`nYou can override the auto-detected artist and title of the video « $($metaData["artist"]) - $($metaData["title"]) »`n";
+    Write-Host "`nYou can override the auto-detected artist and title of the video « $($metaData["originalTitle"]) »`n";
 
     $artist = Read-Host -Prompt "Artist  « $($metaData["artist"]) » "
     $title = Read-Host -Prompt "Title  « $($metaData["title"]) » "
@@ -50,8 +63,8 @@ function PromptMetaData ($metaData)
     }
 
     return @{
-    'artist'=$artist.Trim() -replace '\s+', ' '
-    'title'=$title.Trim() -replace '\s+', ' '
+    'artist'=trim $artist
+    'title'=trim $title
    }
 }
 
