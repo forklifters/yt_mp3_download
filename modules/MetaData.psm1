@@ -2,6 +2,7 @@ function ExtractMetaData ($videoTitle)
 {
     $videoTitle = $videoTitle -ireplace  "(\s|\()feat\.",'$1ft.' # 'feat. xy' -> 'ft. xy'
     $videoTitle = $videoTitle -ireplace  "[[(](HD|HQ)[])]",'' # '[HD]' -> ''
+    $videoTitle = $videoTitle -ireplace  "[[(]high (definition|quality)[])]",'' # '[High Quality]' -> ''
     $videoTitle = $videoTitle -ireplace  "[[(]?official (music|lyrics?) (video|audio)[])]?",'' # '(Official Music Video)' -> ''
     $videoTitle = $videoTitle -ireplace  "[[(]?(official|music|lyrics?) (video|audio)[])]?",'' # '(Official Video)' -> ''
     $videoTitle = $videoTitle -ireplace  "[[(]?video edit[])]?",'' # '(Video Edit)' -> ''
