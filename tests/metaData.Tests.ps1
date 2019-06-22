@@ -1,5 +1,4 @@
-
-Remove-Variable * -ErrorAction SilentlyContinue; Remove-Module *; $error.Clear(); Clear-Host
+Remove-Variable * -ErrorAction SilentlyContinue; Remove-Module *
 Import-Module ./modules/MetaData.psm1
 
 function testMetaData($testcases) {
