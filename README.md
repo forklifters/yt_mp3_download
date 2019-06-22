@@ -2,6 +2,7 @@
 
 [![PowerShell 5.1](https://img.shields.io/badge/PowerShell-5.1-ffaa00.svg)](https://en.wikipedia.org/wiki/PowerShell)
 [![made for Windows](https://img.shields.io/badge/made_for-Windows-blue.svg)](https://en.wikipedia.org/wiki/PowerShell)
+[![Build Status](https://travis-ci.org/Kiuryy/yt_mp3_download.svg?branch=master)](https://travis-ci.org/Kiuryy/yt_mp3_download)
 
 
 This is a PowerShell script, which allows you to download music videos from YouTube and other video platforms. It's using `youtube-dl` to download the videos and `ffmpeg` to convert the video into a mp3. 
