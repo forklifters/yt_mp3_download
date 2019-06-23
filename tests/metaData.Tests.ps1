@@ -1,9 +1,11 @@
-Import-Module ./modules/MetaData.psm1
+# Run from the project root directory as 'Invoke-Pester -EnableExit ./tests/metaData.Tests.ps1'
+
+Import-Module ./modules/metaData.psm1
+
 
 function testMetaData($testcases) {
 
     $testcases.Keys | % {
-        "key = $_ , value = " + $testcases.Item($_)
         $correctResults = $testcases.Item($_)
         $results = ExtractMetaData $_
 
