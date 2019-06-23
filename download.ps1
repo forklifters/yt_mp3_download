@@ -5,8 +5,10 @@ $ErrorActionPreference = "Stop"
 
 Remove-Variable * -ErrorAction SilentlyContinue; Remove-Module *; $error.Clear(); Clear-Host
 
-Import-Module ./modules/IO.psm1
-Import-Module ./modules/MetaData.psm1
+Import-Module ./modules/youtube-dl.psm1
+Import-Module ./modules/ffmpeg.psm1
+Import-Module ./modules/metaData.psm1
+Import-Module ./modules/prompt.psm1
 
 
 $done = $false
@@ -18,9 +20,10 @@ while (!$done)
     $videoTitle = GetVideoTitle $url
     $metaData = ExtractMetaData $videoTitle
     $metaData = PromptMetaData $videoTitle $metaData
+    $prefix = PromptPrefix
 
-    DownloadVideo $url
-    SaveAudioWithMetaData $metaData
+    DownloadVideoAndExtractAudio $url
+    SaveAudioWithMetaData $prefix $metaData
 
 
     $input = Read-Host -Prompt 'Download another video? « y | n »'

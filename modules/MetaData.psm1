@@ -1,5 +1,10 @@
 function ExtractMetaData ($videoTitle)
 {
+    function trim ($str) 
+    {
+        return $str.Trim(" -_.;") -replace '\s+', ' '
+    }
+
     $videoTitle = $videoTitle -ireplace  "(\s|\()feat\.",'$1ft.' # 'feat. xy' -> 'ft. xy'
     $videoTitle = $videoTitle -ireplace  "[[(](HD|HQ|audio|video)[])]",'' # '[HD]' -> ''
     $videoTitle = $videoTitle -ireplace  "[[(]high (definition|quality)[])]",'' # '[High Quality]' -> ''
@@ -28,33 +33,4 @@ function ExtractMetaData ($videoTitle)
      'artist'=trim $artist
      'title'=trim $title
     }
-}
-
-
-function PromptMetaData ($videoTitle, $metaData)
-{
-    Write-Host "`nYou can override the auto-detected artist and title of the video « $(trim $videoTitle) »`n";
-
-    $artist = Read-Host -Prompt "Artist  « $($metaData["artist"]) » "
-    $title = Read-Host -Prompt "Title  « $($metaData["title"]) » "
-
-    if ([string]::IsNullOrWhiteSpace($artist))
-    {
-        $artist = $metaData["artist"]
-    }
-
-    if ([string]::IsNullOrWhiteSpace($title))
-    {
-        $title = $metaData["title"]
-    }
-
-    return @{
-    'artist'=trim $artist
-    'title'=trim $title
-   }
-}
-
-function trim ($str) 
-{
-    return $str.Trim(" -_.;") -replace '\s+', ' '
 }
