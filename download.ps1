@@ -1,10 +1,9 @@
 ﻿#Requires -Version 5.1
 
 Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
-
 Remove-Variable * -ErrorAction SilentlyContinue; Remove-Module *; $error.Clear(); Clear-Host
 
+Import-Module ./modules/stdout.psm1
 Import-Module ./modules/youtube-dl.psm1
 Import-Module ./modules/ffmpeg.psm1
 Import-Module ./modules/metaData.psm1

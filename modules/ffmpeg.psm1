@@ -18,8 +18,10 @@ function SaveAudioWithMetaData ($prefix, $metaData)
 
     Remove-Item $destPath -ErrorAction Ignore
 
-    ./bin/ffmpeg.exe -i "./output/__tmp.mp3" -c copy -metadata artist="$($metaData['artist'])" -metadata title="$($metaData['title'])" $destPath
+    GetExeOutput $(& ./bin/ffmpeg.exe -i "./output/__tmp.mp3" -loglevel error -c copy -metadata artist="$($metaData['artist'])" -metadata title="$($metaData['title'])" $destPath 2>&1)
 
     Remove-Item "./output/__tmp.mp3" -ErrorAction Ignore
+
+    Clear-Host
     Write-Host "`nSaved file as  « $destFilename »`n"
 }

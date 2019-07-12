@@ -1,6 +1,7 @@
+
 function GetVideoTitle ($url)
 {
-    return ./bin/youtube-dl.exe --no-playlist --get-filename -o "%(title)s" $url
+    return GetExeOutput $(& ./bin/youtube-dl.exe --no-playlist --get-filename -o "%(title)s" $url 2>&1)
 }
 
 
@@ -12,5 +13,5 @@ function DownloadVideoAndExtractAudio ($url)
     }
 
 
-    ./bin/youtube-dl.exe --no-playlist --format bestaudio --extract-audio --audio-format mp3 --audio-quality 0 -o "./output/__tmp.%(ext)s" $url
+    GetExeOutput $(./bin/youtube-dl.exe --no-playlist --format bestaudio --extract-audio --audio-format mp3 --audio-quality 0 -o "./output/__tmp.%(ext)s" $url 2>&1)
 }

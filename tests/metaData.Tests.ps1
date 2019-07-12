@@ -38,7 +38,7 @@ describe 'Move [ft.] section' {
      '2Scratch - DEJA VU (ft. Prznt)'=@{'artist'='2Scratch ft. Prznt';'title'='DEJA VU'}  
      'FILV X Beatmount - Dark Sun (Feat. SEQ) | #GANGSTERMUSIC'=@{'artist'='FILV X Beatmount ft. SEQ';'title'='Dark Sun | #GANGSTERMUSIC'} 
      'Super Sako feat. Hayko - Mi Gna (Consoul Trainin Remix)'=@{'artist'='Super Sako ft. Hayko';'title'='Mi Gna (Consoul Trainin Remix)'}  
-     'Lane 8 - Hold On feat. Fractures (Ben Böhmer Remix)'=@{'artist'='Lane 8 ft. Fractures';'title'='Hold On (Ben Böhmer Remix)'}   
+	 'Lane 8 - Hold On feat. Fractures (Ben Böhmer Remix)'=@{'artist'='Lane 8 ft. Fractures';'title'='Hold On (Ben Böhmer Remix)'}   
 	 'Gorgon City (feat. Katy Menditta) - Imagination'=@{'artist'='Gorgon City ft. Katy Menditta';'title'='Imagination'}   
     }
 }
@@ -62,7 +62,6 @@ describe 'Complex parsing' {
      'Marshmello - Here With Me Feat. CHVRCHES (Official Music Video)'=@{'artist'='Marshmello ft. CHVRCHES';'title'='Here With Me'}
      'will.i.am - Scream & Shout ft. Britney Spears (Official Music Video)'=@{'artist'='will.i.am ft. Britney Spears';'title'='Scream & Shout'}
      'Burak Yeter - Tuesday ft. Danelle Sandoval (Audio)'=@{'artist'='Burak Yeter ft. Danelle Sandoval';'title'='Tuesday'}
-     
     }
 }
 
