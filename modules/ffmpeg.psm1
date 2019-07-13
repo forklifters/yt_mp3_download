@@ -22,6 +22,5 @@ function SaveAudioWithMetaData ($prefix, $metaData)
 
     Remove-Item "./output/__tmp.mp3" -ErrorAction Ignore
 
-    Clear-Host
-    Write-Host "`nSaved file as  « $destFilename »`n"
+    return $destFilename
 }
