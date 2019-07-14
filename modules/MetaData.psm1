@@ -2,7 +2,7 @@ function ExtractMetaData ($videoTitle)
 {
     function trim ($str) 
     {
-        return $str.Trim(" -_.;") -replace '\s+', ' '
+        return $str.Trim(" -_;") -replace '\s+', ' '
     }
 
     $videoTitle = $videoTitle -ireplace  "(\s|\()feat\.",'$1ft.' # 'feat. xy' -> 'ft. xy'
