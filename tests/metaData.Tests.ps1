@@ -10,8 +10,8 @@ function testMetaData($testcases) {
         $results = ExtractMetaData $_
 
         it $_ {
-            $results['artist'] | should be $correctResults['artist']
-            $results['title'] | should be $correctResults['title']
+            $results['artist'] | should BeExactly $correctResults['artist']
+            $results['title'] | should BeExactly $correctResults['title']
         }
     }
 }
@@ -86,6 +86,7 @@ describe 'Move [ft.] section' {
      'Serge Devant feat. Jaren - No Good'=@{'artist'='Serge Devant ft. Jaren';'title'='No Good'}
      'Mr. FijiWiji - Yours Truly (feat. Danyka Nadeau)'=@{'artist'='Mr. FijiWiji ft. Danyka Nadeau';'title'='Yours Truly'}
      'Disclosure - White Noise ft. AlunaGeorge'=@{'artist'='Disclosure ft. AlunaGeorge';'title'='White Noise'}
+     'Camo & Krooked - Watch It Burn (Ft. Ayah Marar)'=@{'artist'='Camo & Krooked ft. Ayah Marar';'title'='Watch It Burn'}
     }
 }
 
