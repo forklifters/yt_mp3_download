@@ -28,6 +28,7 @@ function ExtractMetaData ($videoTitle)
     }
 
     $artist = $artist -ireplace "\((ft\.[^)]*)\)",'$1' # '(ft. xy)' -> 'ft. xy'
+    $artist = $artist -ireplace "\sFT\.\s",' ft. ' # 'Ft.' -> 'ft.'
     
     return @{
      'artist'=trim $artist
